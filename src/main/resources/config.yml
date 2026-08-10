@@ -1,0 +1,5 @@
+# VIPCosmetics config
+# This plugin stores per-player cosmetic choices in players.yml and VIP list in vip.yml
+# You can adjust default behavior here.
+settings:
+  particle-interval-ticks: 10
