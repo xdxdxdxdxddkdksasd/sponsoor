@@ -56,20 +56,20 @@ public class GuiManager {
             inv.setItem(i, makeGlassPane());
         }
 
-        // Colors
+        // Colors mapping
         Map<Integer, ChatColor> slots = new LinkedHashMap<>();
         slots.put(10, ChatColor.WHITE);
         slots.put(11, ChatColor.RED);
-        slots.put(12, ChatColor.GOLD); // orange ~ gold
+        slots.put(12, ChatColor.GOLD); // will map to ORANGE/ GOLD wool
         slots.put(13, ChatColor.YELLOW);
         slots.put(14, ChatColor.GREEN);
         slots.put(15, ChatColor.AQUA);
         slots.put(16, ChatColor.BLUE);
 
-        int i = 0;
         for (Map.Entry<Integer, ChatColor> e : slots.entrySet()) {
-            inv.setItem(e.getKey(), item(Material.WOOL, e.getValue() + e.getValue() + "Sample", Arrays.asList(ChatColor.GRAY + "Нажмите чтобы выбрать")));
-            i++;
+            Material mat = materialForChatColor(e.getValue());
+            String display = e.getValue().toString() + " " + e.getValue().name();
+            inv.setItem(e.getKey(), item(mat, display, Arrays.asList(ChatColor.GRAY + "Нажмите чтобы выбрать")));
         }
 
         // extra: purple and pink
@@ -98,7 +98,9 @@ public class GuiManager {
         slots.put(16, ChatColor.BLUE);
 
         for (Map.Entry<Integer, ChatColor> e : slots.entrySet()) {
-            inv.setItem(e.getKey(), item(Material.PAPER, e.getValue() + e.getValue().name(), Arrays.asList(ChatColor.GRAY + "Нажмите чтобы выбрать")));
+            Material mat = materialForChatColor(e.getValue());
+            String display = e.getValue().toString() + " " + e.getValue().name();
+            inv.setItem(e.getKey(), item(mat, display, Arrays.asList(ChatColor.GRAY + "Нажмите чтобы выбрать")));
         }
 
         inv.setItem(26, item(Material.ARROW, ChatColor.GRAY + "Назад", Arrays.asList(ChatColor.GRAY + "Вернуться в главное меню")));
@@ -134,6 +136,31 @@ public class GuiManager {
         return item(Material.GRAY_STAINED_GLASS_PANE, " ");
     }
 
+    private Material materialForChatColor(ChatColor c) {
+        // Map ChatColor to approximate wool/material color for icons
+        if (c == null) return Material.WHITE_WOOL;
+        switch (c) {
+            case WHITE: return Material.WHITE_WOOL;
+            case AQUA: return Material.LIGHT_BLUE_WOOL;
+            case BLUE: return Material.BLUE_WOOL;
+            case DARK_BLUE: return Material.BLUE_WOOL;
+            case GREEN: return Material.GREEN_WOOL;
+            case DARK_GREEN: return Material.GREEN_WOOL;
+            case YELLOW: return Material.YELLOW_WOOL;
+            case GOLD: return Material.ORANGE_WOOL;
+            case RED: return Material.RED_WOOL;
+            case DARK_RED: return Material.RED_WOOL;
+            case LIGHT_PURPLE: return Material.PINK_WOOL;
+            case DARK_PURPLE: return Material.PURPLE_WOOL;
+            case GRAY: return Material.LIGHT_GRAY_WOOL;
+            case DARK_GRAY: return Material.GRAY_WOOL;
+            case BLACK: return Material.BLACK_WOOL;
+            case PINK: return Material.PINK_WOOL;
+            case MAGIC: return Material.LIGHT_BLUE_WOOL;
+            default: return Material.WHITE_WOOL;
+        }
+    }
+
     public static ItemStack item(Material mat, String name) {
         return item(mat, name, null);
     }
@@ -141,9 +168,11 @@ public class GuiManager {
     public static ItemStack item(Material mat, String name, List<String> lore) {
         ItemStack it = new ItemStack(mat);
         ItemMeta meta = it.getItemMeta();
-        meta.setDisplayName(name);
-        if (lore != null) meta.setLore(lore);
-        it.setItemMeta(meta);
+        if (meta != null) {
+            meta.setDisplayName(name);
+            if (lore != null) meta.setLore(lore);
+            it.setItemMeta(meta);
+        }
         return it;
     }
 
