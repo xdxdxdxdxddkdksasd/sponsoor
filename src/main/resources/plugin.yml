@@ -1,0 +1,31 @@
+name: VIPCosmetics
+main: com.vipcosmetics.Main
+version: 1.0.0
+api-version: 1.20
+author: VIPPluginAuthor
+description: VIP cosmetics plugin (name color, chat color, particles, hat, GUI) - single VIP rank.
+commands:
+  vip:
+    description: Открыть VIP-меню или управлять VIP (admin)
+    usage: /vip [give|remove|check] <игрок>
+    permission: vip.use
+  hat:
+    description: Надеть предмет в руке как шляпу
+    usage: /hat
+    permission: vip.hat
+permissions:
+  vip.use:
+    description: Доступ к VIP GUI
+    default: false
+  vip.hat:
+    description: Доступ к /hat
+    default: false
+  vip.admin:
+    description: Доступ к админ-командам VIP
+    default: op
+  vip.admin.give:
+    description: Разрешение выдавать VIP (aliased to vip.admin)
+    default: op
+  vip.admin.remove:
+    description: Разрешение снимать VIP (aliased to vip.admin)
+    default: op
