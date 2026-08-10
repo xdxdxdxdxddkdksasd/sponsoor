@@ -2,7 +2,6 @@ package com.vipcosmetics.gui;
 
 import com.vipcosmetics.Main;
 import com.vipcosmetics.particles.ParticleEffect;
-import com.vipcosmetics.player.VIPPlayerData;
 import com.vipcosmetics.storage.StorageManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
